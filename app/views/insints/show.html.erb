@@ -1,0 +1,28 @@
+
+<p>
+  <strong>Ключ:</strong>
+  <%= @insint.inskey %>
+</p>
+
+<p>
+  <strong>Пароль:</strong>
+  <%= @insint.password %>
+</p>
+
+<p>
+  <strong>subdomen:</strong>
+  <%= @insint.subdomen %>
+</p>
+
+
+
+
+<div class="col-2 btn-group mt-5">
+<%= link_to 'Редактировать', edit_insint_path(@insint), class: 'btn btn-success'%>
+<% if current_admin %>
+<%= link_to 'Назад', adminindex_insints_path, class: 'btn btn-outline-primary'  %>
+  <% else %>
+<%= link_to 'Назад', dashboard_index_path, class: 'btn btn-outline-primary'  %>
+<% end %>
+
+</div>

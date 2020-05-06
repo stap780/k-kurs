@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-2"><h1>Интеграции</h1></div>
+  <div class="col-2"></div>
+  <%= search_form_for @search, html: {class: 'form-inline col-3'} do |f|%>
+  <div class="form-group">
+    <%= f.search_field :subdomen_cont, placeholder: 'Домен', class: "form-control input-sm"%>
+    <%= f.submit 'Поиск', class: 'btn btn-info' %>
+    <%= link_to 'Сбросить',adminindex_insints_path, class: 'btn btn-link' %>
+  </div>
+<% end %>
+</div>
+
+<div class="table-responsive">
+<table class="table table-hover table-condensed table-sm">
+  <thead class="thead-light">
+    <tr>
+      <th>Insales id</th>
+      <th>Имя</th>
+      <th>ДоменИнтегр</th>
+      <th>Ключ</th>
+      <th>Пароль</th>
+      <th>ФайлыИнтегр</th>
+      <th>Проверить интегр</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @insints.each do |insint| %>
+      <tr>
+        <td><%= insint.insalesid %></td>
+        <td><%= insint.user.name %></td>
+        <td><%= insint.subdomen %></td>
+        <td><%= insint.inskey %></td>
+        <td><%= insint.password %></td>
+        <td><% if insint.status == true %>добавлены<% else %> не добавлены<% end %></td>
+        <td><% if insint.inskey.present? %>
+          <%= link_to "Проверить", checkint_insints_path(:insint_id => insint.id), :remote => true, :method => :get , class: "btn btn-outline-info btn-sm" %>
+          <% else %>
+          автоматом
+          <% end %>
+        </td>
+        <td><%= link_to '<i class="fa fa-pencil" aria-hidden="true"></i>'.html_safe, edit_insint_path(insint) %></td>
+        <td><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, insint, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<div class="digg_pagination">
+  <%= will_paginate @insints %>
+</div>

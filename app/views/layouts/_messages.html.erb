@@ -1,0 +1,8 @@
+<div class="alert-devise">
+  <% flash.each do |key, value| %>
+    <div class="<%= flash_class(key) %> fade show">
+      <a href="#" class="close" data-dismiss="alert">&times;</a>
+      <%= value.html_safe %>
+    </div>
+  <% end %>
+</div>

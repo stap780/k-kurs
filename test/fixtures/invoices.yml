@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payplan_id: 1
+  sum: MyString
+  status: MyString
+
+two:
+  payplan_id: 1
+  sum: MyString
+  status: MyString

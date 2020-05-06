@@ -1,0 +1,26 @@
+
+<%= simple_form_for(@insint) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :inskey, label: 'Ключ из настроек' , required: true%>
+    <%= f.input :password, label: 'Пароль из настроек' , required: true , input_html: { value: @insint.password , type: 'text'}%>
+    <%= f.input :subdomen, label: 'Домен из настроек'  %>
+    <%= f.input :insalesid, :as => :hidden %>
+    <% if current_admin %>
+    <%= f.association :user, label: 'Имя пользователя'  %>
+    <% else %>
+    <%= f.input :user_id, :as => :hidden, :input_html => { :value => current_user.id } %>
+    <% end %>
+  </div>
+
+  <div class="btn-group mt-5">
+    <%= f.button :submit, 'Сохранить', class: 'btn btn-success'  %>
+    <% if current_admin %>
+    <%= link_to 'Назад', adminindex_insints_path, class: 'btn btn-outline-primary'  %>
+      <% else %>
+    <%= link_to 'Назад', dashboard_index_path, class: 'btn btn-outline-primary'  %>
+    <% end %>
+  </div>
+<% end %>

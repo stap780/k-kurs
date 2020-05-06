@@ -1,0 +1,2 @@
+module InsintsHelper
+end

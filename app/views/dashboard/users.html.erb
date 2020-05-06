@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-3">
+    <h1>Пользователи</h1>
+    <p>Всего - <%= User.all.count%></p>
+  </div>
+  <%= search_form_for @q, url: url_for(controller: 'dashboard', action: 'users'), html: {class: 'form-inline col-9'}  do |f|%>
+    <div class="form-group">
+      <%= f.search_field :name_or_subdomain_or_email_cont_all, placeholder: 'Имя, домен, email', class: "form-control input-sm"%>
+      <%= f.search_field :created_at_datebegin, placeholder: 'создан от', class: "form-control input-sm", autocomplete: "off" %>
+      <%= f.search_field :valid_until_dateend, placeholder: 'valid до', class: "form-control input-sm", autocomplete: "off"%>
+      <%= f.submit 'Поиск', class: 'btn btn-info' %>
+      <%= link_to 'Сбросить',dashboard_users_path, class: 'btn btn-link' %>
+    </div>
+  <% end %>
+</div>
+
+<div class="table-responsive">
+<table class="table table-hover table-condensed table-sm">
+  <thead class="thead-light">
+    <tr>
+      <th>Имя</th>
+      <th>Логин</th>
+      <th>Email</th>
+      <th>Создан</th>
+      <th>Обновлён</th>
+      <th>Последний вход</th>
+      <th>Действует до</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.subdomain %></td>
+        <td><%= user.email %></td>
+        <td><%= user.created_at %></td>
+        <td><%= user.updated_at %></td>
+        <td><%= user.last_sign_in_at %></td>
+        <td><%= user.valid_until %></td>
+        <td><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, dashboard_user_destroy_path(:user_id => user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+<div class="digg_pagination">
+	<%= will_paginate @users %>
+</div>

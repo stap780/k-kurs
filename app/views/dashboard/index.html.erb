@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col">
+    <h1>Общая информация</h1>
+    <p>Добро пожаловать <strong><% if current_admin %> администратор - <%else%><%end%></strong><%=current_user.name %>!</p>
+    <p>В вашем магазине товаров <%= @product_count %> шт</p>
+    <% if current_admin %><p><%= link_to "Test email", dashboard_test_email_path %> <%= link_to "Загрузить курс", updatekur_kurs_path %></p><%end%>
+  </div>
+  <div class="col">
+  <h3>Интеграция insales</h3>
+    <% integracia = current_user.insints.first if current_user.insints.first.present? %>
+    <p>Состояние:
+      <% if integracia %>настроена<% else %>не настроена<% end %>
+      <% if integracia && integracia.status %>и файлы добавлены в магазин<%else%>и файлы не добавлены в магазин<%end%>
+    </p>
+    <% if current_user.insints.first.present? %>
+      <% if current_user.insints.first.inskey.present?%>
+        <%= link_to 'Редактировать интеграцию', edit_insint_path(current_user.insints.first.id), class: 'btn btn-outline-primary mb-3' %>
+        <% if current_user.insints.first.status == false ||  current_user.insints.first.status.nil? %>
+          <%= link_to 'Добавить файлы', setup_script_insints_path(:insint_id => current_user.insints.first.id), class: 'btn btn-outline-primary mb-3' %>
+        <% else %>
+          <%= link_to 'Удалить файлы', delete_script_insints_path(:insint_id => current_user.insints.first.id), class: 'btn btn-outline-danger mb-3' %>
+        <% end %>
+      <% else %>
+        <% if current_user.insints.first.subdomen.present?%>
+          <p>Регистрация настроена автоматически</p>
+        <% else %>
+          <%= link_to 'Добавить интеграцию', new_insint_path, class: 'btn btn-outline-primary mb-3' %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= link_to 'Добавить интеграцию', new_insint_path, class: 'btn btn-outline-primary mb-3' %>
+    <% end %>
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col">
+  <h3>Регистрация <small><%= current_user.name%> (<%= current_user.subdomain%>)</small></h3>
+  <p>Оплачен до - Бесплатно</p>
+  <p><b>Название магазина: </b><%= @ins_title %></p>
+  <p><b>Телефон:</b> <%= @ins_phone %></p>
+  <p><b>Email:</b> <%= current_user.email %></p>
+  </div>
+  <div class="col">
+<iframe src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0%20k-kurs&targets-hint=&default-sum=&button-text=12&payment-type-choice=on&hint=&successURL=&quickpay=shop&account=41001701618025" width="423" height="222" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
+  </div>
+</div>

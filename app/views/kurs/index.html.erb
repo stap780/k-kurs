@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-4"><h1>Курсы валют</h1></div>
+</div>
+
+<div class="table-responsive">
+<table class="table table-hover table-condensed table-sm">
+  <thead class="thead-light">
+    <tr>
+      <th>Date</th>
+      <th>Gbp</th>
+      <th>Byn</th>
+      <th>Usd</th>
+      <th>Eur</th>
+      <th>Kzt</th>
+      <th>Cny</th>
+      <th>Uah</th>
+      <th>Chf</th>
+      <th>Jpy</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kurs.each do |kur| %>
+      <tr>
+        <td><%= kur.date %></td>
+        <td><%= kur.gbp %></td>
+        <td><%= kur.byn %></td>
+        <td><%= kur.usd %></td>
+        <td><%= kur.eur %></td>
+        <td><%= kur.kzt %></td>
+        <td><%= kur.cny %></td>
+        <td><%= kur.uah %></td>
+        <td><%= kur.chf %></td>
+        <td><%= kur.jpy %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+<div class="digg_pagination">
+  <%= will_paginate @kurs %>
+</div>

@@ -1,0 +1,59 @@
+<% unless current_page?(user_session_url) or current_page?(new_user_session_url) or current_page?(new_user_registration_url) or current_page?(insints_url) or current_page?(new_user_password_url) or current_page?(edit_user_password_url) %>
+  <footer class="pt-4 pt-md-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-sm-3 text-center text-lg-left">
+          <h5>K-kurs</h5>
+          <ul class="list-unstyled text-small">
+            <li>
+              <a class="text-muted" href="+74997042035">84997052117</a>
+            </li>
+            <li>
+              <a class="text-muted" href="+74997042035">88123392235</a>
+            </li>
+            <li>
+              <a class="text-muted" href="mailto:k-comment.ru">info@k-comment.ru</a>
+            </li>
+            <li class="pt-1 d-block d-sm-none"><%= image_tag "/visa-master.png", style:"max-width: 120px;"%></li>
+          </ul>
+          <small class="d-block mb-3 text-muted">&copy; 2019-2020</small>
+        </div>
+        <div class="col-3 col-md d-none d-md-block">
+          <h5>Меню</h5>
+          <ul class="list-unstyled text-small">
+            <li>
+              <a class="text-muted" href="/#service">О сервисе</a>
+            </li>
+            <li>
+              <a class="text-muted" href="/#nastroika">Настройка</a>
+            </li>
+            <li>
+              <a class="text-muted" href="/#o-nas">О нас</a>
+            </li>
+            <li>
+              <a class="text-muted" href="/">Оферта</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-3 col-md d-none d-md-block">
+          <h5>Способы оплаты</h5>
+          <ul class="text-small">
+            <li>Счет для юр лиц</li>
+            <li><%= image_tag "/visa-master.png", style:"max-width: 120px;"%></li>
+          </ul>
+          <p>Прием платежей организован агрегатором
+            <a class="text-muted" rel="nofollow noopener" href="http://www.paymaster.ru/" target="_blank">Paymaster</a>
+          </p>
+        </div>
+        <div class="col-3 col-md d-none d-md-block">
+          <h5>Наши данные</h5>
+          <ul class="list-unstyled text-small">
+            <li>ИП Эмексизов Панаёт Алексеевич</li>
+            <li>Свидетельство о регистрации - 313774610800128</li>
+            <li>ИНН - 772745849012</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+<% end %>

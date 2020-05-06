@@ -1,0 +1,16 @@
+
+<% if resource.errors.any? %>
+<div class="alert-devise">
+  <div class="<%= flash_class('alert') %> fade show">
+     <a href="#" class="close" data-dismiss="alert">&times;</a>
+     <%= I18n.t("errors.messages.not_saved", count: resource.errors.count, resource: resource.class.model_name.human.downcase) %>
+  </div>
+  <% resource.errors.full_messages.each do |message| %>
+  <div class="<%= flash_class('error') %> fade show">
+     <a href="#" class="close" data-dismiss="alert">&times;</a>
+     <%= message.html_safe %>
+  </div>
+  <% end %>
+</div>
+
+<% end %>

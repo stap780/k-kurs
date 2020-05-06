@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="google-site-verification" content=""/>
+    <meta name="yandex-verification" content="c284690800bdd189" />
+    <title>K-kurs - курсы валют для insales</title>
+    <meta name="description" content="курсы валют для insales"/>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application'%>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.css"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id="></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', '');
+    </script>
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym( , "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<!-- Chatra {literal} -->
+<script>
+    (function(d, w, c) {
+        w.ChatraID = 'PYE5YneQ7Ayept6cB';
+        var s = d.createElement('script');
+        w[c] = w[c] || function() {
+            (w[c].q = w[c].q || []).push(arguments);
+        };
+        s.async = true;
+        s.src = 'https://call.chatra.io/chatra.js';
+        if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+</script>
+<!-- /Chatra {/literal} -->
+  </head>
+  <body class="<% if current_page?(root_url) or current_page?(new_user_session_url) or current_page?(new_user_registration_url) or current_page?(insints_url)%>body-main<%end%>">
+    <% unless current_page?(root_url) or current_page?(new_user_session_url) or current_page?(new_user_registration_url) or current_page?(insints_url)%>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="<%= root_path %>">K-kurs</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item <%= 'active' if current_page?(dashboard_index_path) %>">
+              <a class="nav-link" href="<%= dashboard_index_path %>">Главная</a>
+            </li>
+            <li class="nav-item <%= 'active' if current_page?(kurs_path) %>">
+              <a class="nav-link" href="<%= kurs_path %>">Курсы валют</a>
+            </li>
+            <% if current_admin %>
+              <li class="nav-item <%= 'active' if current_page?(dashboard_users_path) %>">
+                <a class="nav-link" href="<%= dashboard_users_path %>">Пользователи</a>
+              </li>
+              <li class="nav-item <%= 'active' if current_page?(adminindex_insints_path) %>">
+                <a class="nav-link" href="<%= adminindex_insints_path %>">Интеграции</a>
+              </li>
+            <% end %>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item  dropdown">
+              <% if current_user %>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                  <i class="fa fa-user-circle" aria-hidden="true"></i>
+                  <%= current_user.name %>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                  <li><%= link_to "Выйти", destroy_user_session_url, method: :delete %></li>
+                </ul>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    <% end %>
+
+    <div class="container-fluid <% unless current_page?(root_url) or current_page?(new_user_session_url) or current_page?(new_user_registration_url) or current_page?(insints_url)%>p-5<% end %>">
+      <%= render partial: "/layouts/messages"%>
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  inn: MyString
+  kpp: MyString
+  title: MyString
+  uraddress: MyString
+  factaddress: MyString
+  ogrn: MyString
+  okpo: MyString
+  bik: MyString
+  banktitle: MyString
+  bankaccount: MyString
+
+two:
+  inn: MyString
+  kpp: MyString
+  title: MyString
+  uraddress: MyString
+  factaddress: MyString
+  ogrn: MyString
+  okpo: MyString
+  bik: MyString
+  banktitle: MyString
+  bankaccount: MyString

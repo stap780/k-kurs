@@ -1,0 +1,69 @@
+<%= render partial: "/layouts/header"%>
+
+<section class="page-section bg-primary text-white mb-0" id="service">
+  <div class="container">
+
+    <!-- About Section Heading -->
+    <h1 class="display-4 text-center text-uppercase text-white pb-4">О сервисе</h1>
+    <!-- About Section Content -->
+    <div class="row">
+      <div class="col-lg-6 ml-auto">
+        <p class="lead">"K-kurs - это бесплатный сервис для разработчиков на InSales. Он позволяет получать курс на сайте магазина в виде удобных liquid переменных и глобальных переменных.</p>
+        <p class="lead">Значения для валют мы берём ежедневно с <a href="https://www.cbr-xml-daily.ru/">https://www.cbr-xml-daily.ru/</a>.</p>
+        <p class="lead">Наш сервис бесплатен и поэтому будем рады Вашей поддержке, так как за сервер надо платить :).</p>
+      </div>
+      <div class="col-lg-6 mr-auto">
+        <p class="lead"><iframe src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0%20k-kurs&targets-hint=&default-sum=&button-text=12&payment-type-choice=on&hint=&successURL=&quickpay=shop&account=41001701618025" width="423" height="222" frameborder="0" allowtransparency="true" scrolling="no"></iframe></p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="page-section mb-0" id="nastroika">
+  <div class="container">
+    <h1 class="display-4 text-center text-uppercase pb-4">Установка и настройка</h1>
+    <ul class="nav nav-tabs mb-3 mt-5 justify-content-center" id="pills-tab" role="tablist">
+      <li class="nav-item">
+      <a class="nav-link active" id="home-tab1" data-toggle="tab" href="#tab-shag1" role="tab" aria-controls="home-tab1" aria-selected="true">Шаг 1</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" id="home-tab2" data-toggle="tab" href="#tab-shag2" role="tab" aria-controls="home-tab2" aria-selected="false">Шаг 2</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" id="home-tab3" data-toggle="tab" href="#tab-shag3" role="tab" aria-controls="home-tab3" aria-selected="false">Шаг 3</a>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="tab-shag1" role="tabpanel" aria-labelledby="home-tab1">
+        <h3 class="h4 mt-2">Вы создаёте регистрацию для вашего магазина в сервисе или устанавливаете приложение из магазина приложений на сайте InSales.</h2>
+      </div>
+      <div class="tab-pane fade" id="tab-shag2" role="tabpanel" aria-labelledby="home-tab2">
+        <h3 class="h4 mt-2">После регистрации Вы добавляете настроки доступа к магазину по API. И нажимаете добавить скрипты в магазин. Далее сервис раз в сутки будет сам обновлять сниппет с переменными liquid и глобальными переменными.</h2>
+      </div>
+      <div class="tab-pane fade" id="tab-shag3" role="tabpanel" aria-labelledby="home-tab3">
+        <h3 class="h4 mt-2">Вы добавляете сниппет в те шаблоны которые Вам необходимы и настраиваете вывод информации о курсе или ценах в нужных Вам местах.</h2>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- About Section -->
+<section class="page-section bg-primary text-white mb-0" id="o-nas">
+  <div class="container">
+
+    <!-- About Section Heading -->
+    <h1 class="display-4 text-center text-uppercase text-white pb-4">О нас</h1>
+
+    <!-- About Section Content -->
+    <div class="row">
+      <div class="col-lg-4 ml-auto">
+        <p class="lead">Мы - это команда единомышленников, которая собралась чтобы создать решения типовых задач наших клиентов.</p>
+      </div>
+      <div class="col-lg-4 mr-auto">
+        <p class="lead">Мы работаем со следующими технологиями - Ruby on Rils, HTML, CSS, и JavaScript
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <%= render partial: "/layouts/footer"%>
