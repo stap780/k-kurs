@@ -37,8 +37,8 @@ lock "~> 3.11.1"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
-set :application, 'kurs'
-set :repo_url, 'git@github.com:stap780/kurs.git'
+set :application, 'k-kurs'
+set :repo_url, 'git@github.com:stap780/k-kurs.git'
 set :deploy_to, '/var/www/kurs'
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
