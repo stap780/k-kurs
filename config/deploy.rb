@@ -39,7 +39,7 @@ lock "~> 3.14.0"
 # set :ssh_options, verify_host_key: :secure
 set :application, 'k-kurs'
 set :repo_url, 'git@github.com:stap780/k-kurs.git'
-set :deploy_to, '/var/www/kurs'
+set :deploy_to, '/var/www/k-kurs'
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
 set :format, :pretty
