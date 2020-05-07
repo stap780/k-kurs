@@ -7,7 +7,9 @@ class UserMailer < ApplicationMailer
       # @url  = 'http://example.com/login'
       @user_email = user_email
       # mail(to: @user.email, subject: 'Welcome to My Awesome Site')
-      mail(to: "panaet80@gmail.com, info@two-g.ru", subject: 'Новая регистрация в приложении')
+      mail(to: "panaet80@gmail.com, info@two-g.ru",
+          reply_to: @user_email ,
+          subject: 'Новая регистрация в приложении K-Kurs')
     end
 
     def service_end_email(user_email)
