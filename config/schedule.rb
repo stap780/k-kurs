@@ -31,6 +31,7 @@ env "GEM_HOME", ENV["GEM_HOME"]
 set :output, "#{path}/log/cron.log"
 set :chronic_options, :hours24 => true
 
-every 1.day, :at => '07:55' do #
+#every 1.day, :at => '07:55' do
+every 2.hours do
   runner "Kur.updatekur"
 end
