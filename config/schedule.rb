@@ -22,14 +22,15 @@
 # просмотр cron -> crontab -l
 # сохранение и запуск cron в режиме девелопмент (писать в терминале) ->  whenever --set environment='development' --write-crontab или
 # RAILS_ENV=development whenever --write-crontab
+# RAILS_ENV=production whenever --write-crontab
 # очистить cron - bundle exec whenever --clear-crontab
-# сервер минус 2 часов (лето) и минус 3 (зима)
+# сервер минус 3 часов (лето) и минус 4 (зима)
 
 env :PATH, ENV['PATH']
 env "GEM_HOME", ENV["GEM_HOME"]
 set :output, "#{path}/log/cron.log"
 set :chronic_options, :hours24 => true
 
-every 1.day, :at => '08:25' do #
-  runner "User.service_end_email"
+every 1.day, :at => '07:47' do #
+  runner "Kur.updatekur"
 end
