@@ -3,7 +3,8 @@
     <h1>Общая информация</h1>
     <p>Добро пожаловать <strong><% if current_admin %> администратор - <%else%><%end%></strong><%=current_user.name %>!</p>
     <p>В вашем магазине товаров <%= @product_count %> шт</p>
-    <% if current_admin %><p><%= link_to "Test email", dashboard_test_email_path %> <%= link_to "Загрузить курс", updatekur_kurs_path %></p><%end%>
+    <% if current_admin %><p><%= link_to "Test email", dashboard_test_email_path %> <%= link_to "Загрузить курс в таблицу", updatekur_kurs_path %></p><%end%>
+    <p><%= link_to "Обновить сниппет", update_snippet_kurs_path %></p></p>
   </div>
   <div class="col">
   <h3>Интеграция insales</h3>

@@ -215,4 +215,88 @@ def self.update_and_email(insint_id)
 
 end
 
+def self.update_kurs_snippet_all_users
+  users = User.all.order(:id)
+  users.each do |user|
+    Insint.update_kurs_snippet(user.id)
+  end
+end
+
+def self.update_kurs_snippet(user_id)
+  user = User.find_by_id(user_id)
+  insint = user.insints.first
+  if insint.inskey.present?
+    # saved_subdomain = insint.user.subdomain
+    # Apartment::Tenant.switch!(saved_subdomain)
+    uri_get_theme = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
+  else
+    # saved_subdomain = "insales"+insint.insalesid.to_s
+    # Apartment::Tenant.switch!(saved_subdomain)
+    uri_get_theme = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
+  end
+
+  response = RestClient.get(uri_get_theme)
+  data = JSON.parse(response)
+  data.each do |d|
+    if d['is_published'] == true
+      @theme_id = d['id']
+    end
+  end
+
+  if insint.inskey.present?
+    url_get_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
+  else
+    url_get_snp = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"+"#{@theme_id}"+"/assets.json"
+  end
+
+  response = RestClient.get(url_get_snp)
+  data = JSON.parse(response)
+  data.each do |d|
+    if d['inner_file_name'] == "k-kurs.liquid"
+      @k_kurs_id = d['id']
+    end
+  end
+
+  uri_usa = "http://adac515eb0b2e657ba9c513d8ecbe75d:4cff078b178d68659a325c35aa0539d4@usabrandshop.myinsales.ru/admin/themes/1398929/assets/161100410.xml"
+  if insint.inskey.present?
+    url_upd_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
+  else
+    url_upd_snp = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
+  end
+
+  liquid_data_hash = []
+  js_data_hash = []
+  kurs = Kur.last
+  kurs_hash = JSON.parse(kurs.to_json)
+  kurs_hash.each do |k,v|
+    if k != "id" and k != "created_at" and k != "updated_at"
+      liquid_data_hash.push('{% assign k_'+k+' = "'+v.to_s+'" %}')
+      js_data_hash.push('"k_'+k+'": "'+v.to_s+'"')
+    end
+  end
+  liquid_data = liquid_data_hash.join('')
+  js_data = js_data_hash.join(',')
+  data = '<asset><content><![CDATA['+liquid_data+'
+  <script type="text/javascript">
+    Site.messages = {
+      '+js_data+'
+      };
+  </script>
+  ]]></content></asset>'
+
+  RestClient.put( url_upd_snp, data, {:content_type => 'application/xml', accept: :xml}) { |response, request, result, &block|
+          puts response.code
+                case response.code
+                when 200
+                  puts 'Обновили k-kurs'
+                  # puts response
+                when 422
+                  puts '422'
+                  puts response
+                else
+                  response.return!(&block)
+                end
+                }
+end
+
 end

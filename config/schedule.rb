@@ -35,3 +35,7 @@ set :chronic_options, :hours24 => true
 every 2.hours do
   runner "Kur.updatekur"
 end
+
+every 1.day, :at => '13:45' do
+  runner "Insint.update_kurs_snippet_all_users"
+end

@@ -71,6 +71,12 @@ class KursController < ApplicationController
     redirect_to dashboard_index_path
   end
 
+  def update_snippet
+    Insint.update_kurs_snippet(current_user.id)
+    flash[:notice] = 'Обновили сниппет'
+    redirect_to dashboard_index_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_kur

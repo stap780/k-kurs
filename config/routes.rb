@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :kurs do
     collection do
       get :updatekur
+      get :update_snippet
     end
   end
   root to: 'home#index'
