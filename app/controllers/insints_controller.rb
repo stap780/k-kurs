@@ -78,16 +78,16 @@ class InsintsController < ApplicationController
       save_subdomain = "insales"+params[:insales_id]
       email = save_subdomain+"@mail.ru"
       # puts save_subdomain
-      user = User.create(:name => params[:insales_id], :subdomain => save_subdomain, :password => save_subdomain, :password_confirmation => save_subdomain, :email => email)
-      user.valid_from = user.created_at
-      user.valid_until = ''#user.created_at + 7.days
-      user.save
-      #puts user.id
+      valid_from = Time.now
+      valid_until = valid_from + 1.year
+      user = User.create(:name => params[:insales_id], :subdomain => save_subdomain, :password => save_subdomain, :password_confirmation => save_subdomain, :email => email, :valid_from => valid_from, :valid_until => valid_until)
+      puts "user id - "+user.id.to_s+" - должно быть здесь"
       secret_key = ENV["INS_APP_SECRET_KEY"]
       password = Digest::MD5.hexdigest(params[:token] + secret_key)
       insint_new = Insint.create(:subdomen => params[:shop],  password: password, insalesid: params[:insales_id], :user_id => user.id)
       Insint.setup_ins_shop(insint_new.id)
       head :ok
+      # render status: 200
       ## ниже обновляем почту клиента из инсалес и письмо нам о том что зарегился клиент
       Insint.update_and_email(insint_new.id)
     end
