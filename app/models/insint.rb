@@ -27,7 +27,7 @@ def self.setup_ins_shop(insint_id)
     saved_subdomain = "insales"+insint.insalesid.to_s
     Apartment::Tenant.switch!(saved_subdomain)
 
-    uri = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
+    uri = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
     response = RestClient.get(uri)
     data = JSON.parse(response)
     data.each do |d|
@@ -51,7 +51,7 @@ def self.add_snippet(insint_id, theme_id)
   else
     saved_subdomain = "insales"+insint.insalesid.to_s
     Apartment::Tenant.switch!(saved_subdomain)
-    uri = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets.xml"
+    uri = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets.xml"
   end
   liquid_data_hash = []
   js_data_hash = []
@@ -109,7 +109,7 @@ def self.add_snippet_to_layout(insint_id, theme_id)
   else
     saved_subdomain = "insales"+insint.insalesid.to_s
     Apartment::Tenant.switch!(saved_subdomain)
-    url = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets.json"
+    url = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets.json"
     # puts url
     response = RestClient.get(url)
     data = JSON.parse(response)
@@ -119,13 +119,13 @@ def self.add_snippet_to_layout(insint_id, theme_id)
       end
     end
 
-    uri = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets/"+"#{@footer_id}"+".json"
+    uri = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets/"+"#{@footer_id}"+".json"
     resp_get_footer_content = RestClient.get(uri)
     data = JSON.parse(resp_get_footer_content)
     footer_content = data['content']
     new_footer_content = footer_content+' <span class="k-kurs">{% include "k-kurs" %}</span>'
     data = '<asset><content><![CDATA[ '+new_footer_content+' ]]></content></asset>'
-    uri_new_footer = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets/"+"#{@footer_id}"+".xml"
+    uri_new_footer = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets/"+"#{@footer_id}"+".xml"
     resp_change_footer_content = RestClient.put uri_new_footer, data, :accept => :xml, :content_type => "application/xml"
   end
 end
@@ -148,7 +148,7 @@ def self.delete_ins_file(insint_id) # два этапа. это первый э�
     saved_subdomain = "insales"+insint.insalesid.to_s
     Apartment::Tenant.switch!(saved_subdomain)
     puts "удаляем файлы из магазина"
-    uri = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
+    uri = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
     response_theme_id = RestClient.get(uri)
     data_theme_id = JSON.parse(response_theme_id)
     data_theme_id.each do |d|
@@ -166,8 +166,8 @@ def self.delete_ins_file_next(insint_id, theme_id) # два этапа. это �
     @uri_delete = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets.json"
     @url = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"
   else
-    @uri_delete = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets.json"
-    @url = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"
+    @uri_delete = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"+"/assets.json"
+    @url = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{theme_id}"
   end
 
   response_delete = RestClient.get(@uri_delete)
@@ -201,7 +201,7 @@ end
 def self.update_and_email(insint_id)
   insint = Insint.find(insint_id)
   if !insint.inskey.present?
-    url = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/account.json"
+    url = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/account.json"
   # ниже обновляем адрес почты пользователя после автоустановки магазина
     resp = RestClient.get( url )
     data = JSON.parse(resp)
@@ -232,7 +232,7 @@ def self.update_kurs_snippet(user_id)
   else
     # saved_subdomain = "insales"+insint.insalesid.to_s
     # Apartment::Tenant.switch!(saved_subdomain)
-    uri_get_theme = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
+    uri_get_theme = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
   end
 
   response = RestClient.get(uri_get_theme)
@@ -246,7 +246,7 @@ def self.update_kurs_snippet(user_id)
   if insint.inskey.present?
     url_get_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
   else
-    url_get_snp = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"+"#{@theme_id}"+"/assets.json"
+    url_get_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"+"#{@theme_id}"+"/assets.json"
   end
 
   response = RestClient.get(url_get_snp)
@@ -261,7 +261,7 @@ def self.update_kurs_snippet(user_id)
   if insint.inskey.present?
     url_upd_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
   else
-    url_upd_snp = "http://k-comment:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
+    url_upd_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
   end
 
   liquid_data_hash = []
