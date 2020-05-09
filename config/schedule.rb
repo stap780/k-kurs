@@ -36,6 +36,6 @@ every 2.hours do
   runner "Kur.updatekur"
 end
 
-every 1.day, :at => '13:55' do
+every 1.day, :at => '08:35' do
   runner "Insint.update_kurs_snippet_all_users"
 end

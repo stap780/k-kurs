@@ -64,7 +64,7 @@ class InsintsController < ApplicationController
   def destroy
     @insint.destroy
     respond_to do |format|
-      format.html { redirect_to insints_url, notice: 'Интеграция удалена.' }
+      format.html { redirect_to adminindex_insints_url, notice: 'Интеграция удалена.' }
       format.json { head :no_content }
     end
   end
@@ -142,7 +142,7 @@ class InsintsController < ApplicationController
     if insint.inskey.present?
       uri = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/account.json"
     else
-      uri = "http://k-comment.ru"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/account.json"
+      uri = "http://k-kurs.ru"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/account.json"
     end
     # puts uri
     RestClient.get( uri, {:content_type => 'application/json', accept: :json}) { |response, request, result, &block|
