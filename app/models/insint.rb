@@ -246,9 +246,9 @@ def self.update_kurs_snippet(user_id)
   if insint.inskey.present?
     url_get_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
   else
-    url_get_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"+"#{@theme_id}"+"/assets.json"
+    url_get_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
   end
-
+puts url_get_snp
   response = RestClient.get(url_get_snp)
   data = JSON.parse(response)
   data.each do |d|
@@ -257,11 +257,10 @@ def self.update_kurs_snippet(user_id)
     end
   end
 
-  uri_usa = "http://adac515eb0b2e657ba9c513d8ecbe75d:4cff078b178d68659a325c35aa0539d4@usabrandshop.myinsales.ru/admin/themes/1398929/assets/161100410.xml"
   if insint.inskey.present?
     url_upd_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
   else
-    url_upd_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
+    url_upd_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
   end
 
   liquid_data_hash = []
