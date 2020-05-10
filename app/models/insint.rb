@@ -69,11 +69,11 @@ def self.add_snippet(insint_id, theme_id)
   <content><![CDATA['+liquid_data+'<script type="text/javascript">Site.messages = {'+js_data+'};</script> ]]></content><type>Asset::Snippet</type></asset>'
 
   RestClient.post( uri, data, {:content_type => 'application/xml', accept: :xml}) { |response, request, result, &block|
-					puts response.code
+					# puts response.code
 								case response.code
 								when 200
 									puts 'Файл с именем k-kurs.liquid - сохранили'
-									puts response
+									# puts response
 								when 422
 									puts '422'
                   puts response
@@ -224,7 +224,6 @@ end
 
 def self.update_kurs_snippet(user_id)
   user = User.find_by_id(user_id)
-  puts user.id
   insint = user.insints.first
   if insint.present? and insint.status
     if insint.inskey.present?
@@ -286,7 +285,7 @@ def self.update_kurs_snippet(user_id)
     ]]></content></asset>'
 
     RestClient.put( url_upd_snp, data, {:content_type => 'application/xml', accept: :xml}) { |response, request, result, &block|
-            puts response.code
+            # puts response.code
                   case response.code
                   when 200
                     puts 'Обновили k-kurs'
