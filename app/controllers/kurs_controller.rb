@@ -18,7 +18,11 @@ class KursController < ApplicationController
 
   # GET /kurs/new
   def new
+    if current_admin
     @kur = Kur.new
+    else
+      redirect_to dashboard_index_path
+    end
   end
 
   # GET /kurs/1/edit
