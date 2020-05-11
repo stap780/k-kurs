@@ -3,7 +3,7 @@ class Kur < ApplicationRecord
   validates :date, uniqueness: true
 
   def self.updatekur
-    puts 'Обновляем курс'
+    puts "Обновляем курс "+"#{Time.zone.now}"
     url = "https://www.cbr-xml-daily.ru/daily_json.js"
     resp = RestClient.get(url)
     data = JSON.parse(resp)
@@ -47,7 +47,7 @@ class Kur < ApplicationRecord
     else
       kur.update_attributes(gbp: @gbp, byn: @byn, usd: @usd, eur: @eur, kzt: @kzt, cny: @cny, uah: @uah, chf: @chf, jpy: @jpy)
     end
-    puts 'Закончили обновлять курс'
+    puts "Закончили обновлять курс "+"#{Time.zone.now}"
   end
 
 end

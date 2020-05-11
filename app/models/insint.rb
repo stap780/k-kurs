@@ -216,10 +216,12 @@ def self.update_and_email(insint_id)
 end
 
 def self.update_kurs_snippet_all_users
+  puts "Start update_kurs_snippet_all_users - "+"#{Time.zone.now}"
   users = User.all.order(:id)
   users.each do |user|
     Insint.update_kurs_snippet(user.id)
   end
+    puts "Finish update_kurs_snippet_all_users - "+"#{Time.zone.now}"
 end
 
 def self.update_kurs_snippet(user_id)
