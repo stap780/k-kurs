@@ -16,9 +16,13 @@ class DashboardController < ApplicationController
   end # index
 
   def users
-    @q = User.ransack(params[:q])
-    @q.sorts = 'id desc' if @q.sorts.empty?
-    @users = @q.result.paginate(page: params[:page], per_page: 30)
+    if current_admin
+      @q = User.ransack(params[:q])
+      @q.sorts = 'id desc' if @q.sorts.empty?
+      @users = @q.result.paginate(page: params[:page], per_page: 30)
+    else
+      redirect_to dashboard_index_path
+    end
   end
 
   def user_destroy
