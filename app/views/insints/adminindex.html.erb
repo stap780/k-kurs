@@ -30,7 +30,7 @@
       <tr>
         <td><%= insint.insalesid %></td>
         <td><%= insint.user.name %></td>
-        <td><%= insint.subdomen.truncate(60) if insint.subdomen !=nil  %></td>
+        <td><%= insint.subdomen.truncate(50) if insint.subdomen !=nil  %></td>
         <td><%= insint.inskey %></td>
         <td><%= insint.password %></td>
         <td><% if insint.status == true %>добавлены<% else %> не добавлены<% end %></td>
