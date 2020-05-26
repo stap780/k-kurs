@@ -266,3 +266,10 @@ pre {
 .card-body {
     min-height: 280px;
 }
+
+.has-error {
+    background-color: #f8d7da;
+}
+.has-error .help-block {
+   padding-left: 5px;
+}

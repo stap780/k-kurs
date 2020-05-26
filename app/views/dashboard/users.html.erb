@@ -35,8 +35,8 @@
         <td><%= user.name %></td>
         <td><%= user.subdomain %></td>
         <td><%= user.email %></td>
-        <td><%= user.created_at %></td>
-        <td><%= user.updated_at %></td>
+        <td><%= user.created_at.in_time_zone.strftime("%d/%m/%Y %H:%M" ) %></td>
+        <td><%= user.updated_at.in_time_zone.strftime("%d/%m/%Y %H:%M" ) %></td>
         <td><%= user.last_sign_in_at %></td>
         <td><%= user.valid_until %></td>
         <td><%= link_to '<i class="fa fa-trash" aria-hidden="true"></i>'.html_safe, dashboard_user_destroy_path(:user_id => user), method: :delete, data: { confirm: 'Are you sure?' } %></td>

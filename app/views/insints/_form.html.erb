@@ -6,7 +6,7 @@
   <div class="form-inputs">
     <%= f.input :inskey, label: 'Ключ из настроек' , required: true%>
     <%= f.input :password, label: 'Пароль из настроек' , required: true , input_html: { value: @insint.password , type: 'text'}%>
-    <%= f.input :subdomen, label: 'Домен из настроек'  %>
+    <%= f.input :subdomen, label: 'Домен из настроек', required: true , input_html: { placeholder: 'myshop.myinsales.ru', type: 'text'}  %>
     <%= f.input :insalesid, :as => :hidden %>
     <% if current_admin %>
     <%= f.association :user, label: 'Имя пользователя'  %>
