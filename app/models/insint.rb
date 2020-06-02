@@ -253,13 +253,14 @@ def self.update_kurs_snippet(user_id)
                     puts '422'
                     puts response
                   when 401
+                    @theme_id = ''
                     puts '401 - id темы не получили - магазин не отвечает'
                     break
                   else
                     response.return!(&block)
                   end
                   }
-    if @theme_id.present?
+    if @theme_id != ''
       if insint.inskey.present?
         url_get_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
       else
