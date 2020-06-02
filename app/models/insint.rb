@@ -237,7 +237,7 @@ def self.update_kurs_snippet(user_id)
       # Apartment::Tenant.switch!(saved_subdomain)
       uri_get_theme = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
     end
-
+    puts uri_get_theme
     response = RestClient.get(uri_get_theme)
     data = JSON.parse(response)
     data.each do |d|
