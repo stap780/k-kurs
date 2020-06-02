@@ -259,60 +259,62 @@ def self.update_kurs_snippet(user_id)
                     response.return!(&block)
                   end
                   }
-
-    if insint.inskey.present?
-      url_get_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
-    else
-      url_get_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
-    end
-    # puts url_get_snp
-    response = RestClient.get(url_get_snp)
-    data = JSON.parse(response)
-    data.each do |d|
-      if d['inner_file_name'] == "k-kurs.liquid"
-        @k_kurs_id = d['id']
+    if @theme_id.present?
+      if insint.inskey.present?
+        url_get_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
+      else
+        url_get_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
       end
-    end
-
-    if insint.inskey.present?
-      url_upd_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
-    else
-      url_upd_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
-    end
-
-    liquid_data_hash = []
-    js_data_hash = []
-    kurs = Kur.last
-    kurs_hash = JSON.parse(kurs.to_json)
-    kurs_hash.each do |k,v|
-      if k != "id" and k != "created_at" and k != "updated_at"
-        liquid_data_hash.push('{% assign k_'+k+' = "'+v.to_s+'" %}')
-        js_data_hash.push('"k_'+k+'": "'+v.to_s+'"')
+      # puts url_get_snp
+      response = RestClient.get(url_get_snp)
+      data = JSON.parse(response)
+      data.each do |d|
+        if d['inner_file_name'] == "k-kurs.liquid"
+          @k_kurs_id = d['id']
+        end
       end
-    end
-    liquid_data = liquid_data_hash.join('')
-    js_data = js_data_hash.join(',')
-    data = '<asset><content><![CDATA['+liquid_data+'
-    <script type="text/javascript">
-      Site.messages = {
-        '+js_data+'
-        };
-    </script>
-    ]]></content></asset>'
 
-    RestClient.put( url_upd_snp, data, {:content_type => 'application/xml', accept: :xml}) { |response, request, result, &block|
-            # puts response.code
-                  case response.code
-                  when 200
-                    puts 'Обновили k-kurs'
-                    # puts response
-                  when 422
-                    puts '422'
-                    puts response
-                  else
-                    response.return!(&block)
-                  end
-                  }
+      if insint.inskey.present?
+        url_upd_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
+      else
+        url_upd_snp = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets/"+"#{@k_kurs_id}"+".xml"
+      end
+
+      liquid_data_hash = []
+      js_data_hash = []
+      kurs = Kur.last
+      kurs_hash = JSON.parse(kurs.to_json)
+      kurs_hash.each do |k,v|
+        if k != "id" and k != "created_at" and k != "updated_at"
+          liquid_data_hash.push('{% assign k_'+k+' = "'+v.to_s+'" %}')
+          js_data_hash.push('"k_'+k+'": "'+v.to_s+'"')
+        end
+      end
+      liquid_data = liquid_data_hash.join('')
+      js_data = js_data_hash.join(',')
+      data = '<asset><content><![CDATA['+liquid_data+'
+      <script type="text/javascript">
+        Site.messages = {
+          '+js_data+'
+          };
+      </script>
+      ]]></content></asset>'
+
+      RestClient.put( url_upd_snp, data, {:content_type => 'application/xml', accept: :xml}) { |response, request, result, &block|
+              # puts response.code
+                    case response.code
+                    when 200
+                      puts 'Обновили k-kurs'
+                      # puts response
+                    when 422
+                      puts '422'
+                      puts response
+                    else
+                      response.return!(&block)
+                    end
+                    }
+
+    end
   end
 end
 
