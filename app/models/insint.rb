@@ -238,13 +238,27 @@ def self.update_kurs_snippet(user_id)
       uri_get_theme = "http://k-kurs:"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes.json"
     end
     puts uri_get_theme
-    response = RestClient.get(uri_get_theme)
-    data = JSON.parse(response)
-    data.each do |d|
-      if d['is_published'] == true
-        @theme_id = d['id']
-      end
-    end
+
+    RestClient.get( uri_get_theme, {:content_type => 'application/json', accept: :json}) { |response, request, result, &block|
+            # puts response.code
+                  case response.code
+                  when 200
+                    data = JSON.parse(response)
+                    data.each do |d|
+                      if d['is_published'] == true
+                        @theme_id = d['id']
+                      end
+                    end
+                  when 422
+                    puts '422'
+                    puts response
+                  when 401
+                    puts '401 - id темы не получили - магазин не отвечает'
+                    next
+                  else
+                    response.return!(&block)
+                  end
+                  }
 
     if insint.inskey.present?
       url_get_snp = "http://"+"#{insint.inskey}"+":"+"#{insint.password}"+"@"+"#{insint.subdomen}"+"/admin/themes/"+"#{@theme_id}"+"/assets.json"
