@@ -254,7 +254,7 @@ def self.update_kurs_snippet(user_id)
                     puts response
                   when 401
                     puts '401 - id темы не получили - магазин не отвечает'
-                    next
+                    break
                   else
                     response.return!(&block)
                   end
